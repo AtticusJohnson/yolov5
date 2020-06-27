@@ -533,7 +533,10 @@ class LoadImagesAndLabels(Dataset):  # for training/testing
         # Convert
         img = img[:, :, ::-1].transpose(2, 0, 1)  # BGR to RGB, to 3x416x416
         img = np.ascontiguousarray(img)
-
+        # normalize
+        mean = [80.2324447631836, 80.93988037109375, 54.676353454589844]
+        std = [53.057960510253906, 53.754241943359375, 45.067726135253906]
+        img = (img[:, ...] - np.asarray(mean[:])) / np.asarray(std[:])
         return torch.from_numpy(img), labels_out, self.img_files[index], shapes
 
     @staticmethod
