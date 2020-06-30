@@ -20,7 +20,8 @@ except:
     print('Apex recommended for faster mixed precision training: https://github.com/NVIDIA/apex')
     mixed_precision = False  # not installed
 
-wdir = 'weights' + os.sep  # weights dir
+workdir = f"fold{}/"
+wdir = f'fold{}/weights' + os.sep  # weights dir
 os.makedirs(wdir, exist_ok=True)
 last = wdir + 'last.pt'
 best = wdir + 'best.pt'
@@ -430,6 +431,7 @@ if __name__ == '__main__':
     if device.type == 'cpu':
         mixed_precision = False
 
+    num_fold = int(opt.name[-1])
     # Train
     if not opt.evolve:
         tb_writer = SummaryWriter(comment=opt.name)
